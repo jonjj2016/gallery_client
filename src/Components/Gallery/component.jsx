@@ -22,9 +22,9 @@ const Component = ({ loading, images, err, state, fetchImages, onChange, onSubmi
   return (
     <div style={{ backgroundColor: '#000' }}>
       <Menu inverted fixed='top'>
-        <Menu.Menu position='right'>
-          <Form inverted onSubmit={onSubmit}>
-            <Input value={state.searchField} inverted loading={loading} icon='search' onChange={onChange} placeholder='Search...' name='userInput' />
+        <Menu.Menu style={{ margin: '1rem auto' }} position='right'>
+          <Form style={{ width: '50vw' }} inverted onSubmit={onSubmit}>
+            <Input fluid value={state.searchField} inverted loading={loading} icon='search' onChange={onChange} placeholder='Search...' name='userInput' />
           </Form>
         </Menu.Menu>
       </Menu>
