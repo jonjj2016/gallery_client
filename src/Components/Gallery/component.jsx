@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Menu, Form, Input, Segment } from 'semantic-ui-react';
 import Gallery from 'react-photo-gallery';
 import Carousel, { Modal, ModalGateway } from 'react-images';
@@ -6,13 +6,17 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import styled from 'styled-components';
 import Loader from '../Loader/Loader';
 
-const Component = ({ loading, images, err, state, setState, fetchImages, onChange, onSubmit }) => {
+const Component = ({ loading, images, err, state, fetchImages, onChange, onSubmit }) => {
+  const [myState, setMyState] = useState({
+    currentImage: 0,
+    viewerIsOpen: false,
+  });
   const openLightbox = useCallback((event, { photo, index }) => {
-    setState({ ...state, currentImage: index, viewerIsOpen: true });
+    setMyState({ ...state, currentImage: index, viewerIsOpen: true });
   }, []);
 
   const closeLightbox = () => {
-    setState({ ...state, currentImage: 0, viewerIsOpen: false });
+    setMyState({ ...state, currentImage: 0, viewerIsOpen: false });
   };
 
   return (
@@ -30,10 +34,10 @@ const Component = ({ loading, images, err, state, setState, fetchImages, onChang
             <React.Fragment>
               <Gallery photos={images} onClick={openLightbox} />
               <ModalGateway>
-                {state.viewerIsOpen ? (
+                {myState.viewerIsOpen ? (
                   <Modal onClose={closeLightbox}>
                     <Carousel
-                      currentIndex={state.currentImage}
+                      currentIndex={myState.currentImage}
                       views={images.map((x) => ({
                         ...x,
                         srcset: x.srcSet,

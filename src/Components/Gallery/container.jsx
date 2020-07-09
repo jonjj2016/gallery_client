@@ -15,17 +15,12 @@ const Container = () => {
 
   const { count, start, images, loading, err } = useSelector((state) => state);
 
-  console.log(images);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(search_start({ count: count, start, searchField: state.searchField }));
   }, []);
   const fetchImages = () => {
-    console.log(count, start);
     if (start) {
-      console.log('start', start);
-
       dispatch(load_start({ count, start, searchField: state.searchField }));
     }
   };
